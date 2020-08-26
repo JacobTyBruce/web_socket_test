@@ -34,8 +34,8 @@ io.on('connection', (socket) => {
         io.emit('user left', `${socket.username} left the chat!`);
         io.emit('user count', connectedUsers);
     })
-    socket.on('chat message', (msg, username) => {
-        io.emit('chat message', msg, username);
+    socket.on('chat message', (msg, username, file) => {
+        io.emit('chat message', msg, username, file);
     });
 
 })
