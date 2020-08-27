@@ -3,6 +3,11 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const os = require('os');
+const pm2 = require('@pm2/io');
+const realTimeUsers = pm2.counter({
+    name: 'Realtime User Count'
+})
+
 var networkInterfaces = os.networkInterfaces();
 var connectedUsers = 0;
 
@@ -21,6 +26,7 @@ io.on('connection', (socket) => {
     socket.on('new user', (username) => {
         console.log('A user connected at ' + socket.handshake.address);
         connectedUsers += 1;
+        realTimeUsers.inc();
         console.log(connectedUsers);
         socket.username = username;
         console.log(socket.username)
@@ -30,6 +36,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('User Disconnected');
         connectedUsers -= 1;
+        realTimeUsers.dec();
         zeroUsers();
         io.emit('user left', `${socket.username} left the chat!`);
         io.emit('user count', connectedUsers);
