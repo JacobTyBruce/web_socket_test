@@ -1,7 +1,7 @@
 
 const app = require('express')();
 const https = require('https')
-const io = require('socket.io')(http);
+const io = require('socket.io')(httpsServer);
 const os = require('os');
 const pm2 = require('@pm2/io');
 const fs = require('fs')
