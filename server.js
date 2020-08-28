@@ -1,13 +1,21 @@
 
 const app = require('express')();
-const http = require('http').createServer(app);
+const https = require('https')
 const io = require('socket.io')(http);
 const os = require('os');
 const pm2 = require('@pm2/io');
-const realTimeUsers = pm2.counter({
-    name: 'Realtime User Count'
-})
+const fs = require('fs')
 
+// ssl
+const hostname = 'randomchat.tech';
+
+const options = {
+    cert: fs.readFileSync("./ssl/www_randomchat_tech.crt"),
+    ca: fs.readFileSync("./ssl/www_randomchat_tech.ca-bundle"),
+    key: fs.readFileSync("./ssl/example_com.key")
+}
+
+// network
 var networkInterfaces = os.networkInterfaces();
 var connectedUsers = 0;
 
@@ -17,6 +25,7 @@ function zeroUsers() {
   }
 }
 
+const httpsServer = https.createServer(options, app);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/client.html');
@@ -36,7 +45,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('User Disconnected');
         connectedUsers -= 1;
-        realTimeUsers.dec();
+        realTimeUsers.dec();npm
         zeroUsers();
         io.emit('user left', `${socket.username} left the chat!`);
         io.emit('user count', connectedUsers);
@@ -47,7 +56,7 @@ io.on('connection', (socket) => {
 
 })
 
-http.listen(3000, () => {
+httpsServer.listen(3000, () => {
     console.log('listening on port 3000');
     console.log(networkInterfaces);
 })
