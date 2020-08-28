@@ -1,4 +1,4 @@
-
+const fs = require('fs');
 // ssl
 const hostname = 'randomchat.tech';
 
@@ -12,7 +12,6 @@ const app = require('express')();
 const https = require('https').createServer(options, app)
 const io = require('socket.io')(https);
 const os = require('os');
-const fs = require('fs');
 
 // network
 var networkInterfaces = os.networkInterfaces();
