@@ -1,11 +1,4 @@
 
-const app = require('express')();
-const https = require('https')
-const io = require('socket.io')(httpsServer);
-const os = require('os');
-const pm2 = require('@pm2/io');
-const fs = require('fs')
-
 // ssl
 const hostname = 'randomchat.tech';
 
@@ -14,6 +7,12 @@ const options = {
     ca: fs.readFileSync("./ssl/www_randomchat_tech.ca-bundle"),
     key: fs.readFileSync("./ssl/example_com.key")
 }
+
+const app = require('express')();
+const https = require('https').createServer(options, app)
+const io = require('socket.io')(https);
+const os = require('os');
+const fs = require('fs');
 
 // network
 var networkInterfaces = os.networkInterfaces();
@@ -24,8 +23,6 @@ function zeroUsers() {
     connectedUsers = 0;
   }
 }
-
-const httpsServer = https.createServer(options, app);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/client.html');
@@ -56,7 +53,7 @@ io.on('connection', (socket) => {
 
 })
 
-httpsServer.listen(3000, () => {
+https.listen(3000, () => {
     console.log('listening on port 3000');
     console.log(networkInterfaces);
 })
