@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+    width: 100vw;
+    height: 10%;
+    background: linear-gradient(#e66465, #9198e5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input:nth-child(1) {
+    width: 70%;
+    height: 90%;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    font-size: 32px;
+    color: white;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    height: 25%;
+    padding: 5px;
+    margin: 10px;
+}
+
+button {
+    width: 10%;
+    height: 50%;
+    margin: 0 2.5% 0 2.5%;
+    border-radius: 15px;
+}
+
+#user-count {
+    background: grey;
+    width: 10%;
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+}
+
+#messages {
+    width: 100%;
+    height: 80vh;
+    font-size: 20px;
+    border-bottom: 2px solid black;
+    overflow-y: scroll;
+}
+
+#messages li:nth-child(odd) {
+    background: #eee;
+}
+
+.text-message {
+    height: auto;
+    font-size: 20px;
+    padding: 5px;
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 10% 90%;
+    grid-template-rows: auto auto;
+}
+
+.username {
+    font-weight: bolder;
+    border-right: 2px solid black;
+    padding-right: 5px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+}
+
+.message {
+    background-color: #7b7b7b00;
+    margin-left: 5px;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.thumbnail {
+    max-width: 50px;
+    max-height: 50px;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.thumbnail:hover {
+    cursor: pointer;
+}
+
+.thumbnail-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: black;
+    opacity: 0.2;
+}

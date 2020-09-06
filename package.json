@@ -5,5 +5,27 @@
     "fs": "^0.0.1-security",
     "openssl": "^1.1.0",
     "socket.io": "^2.3.0"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "startDev": "nodemon server.js"
+  },
+  "name": "web_socket_test",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JacobTyBruce/web_socket_test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JacobTyBruce/web_socket_test/issues"
+  },
+  "homepage": "https://github.com/JacobTyBruce/web_socket_test#readme",
+  "description": ""
 }

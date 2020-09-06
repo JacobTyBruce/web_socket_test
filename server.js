@@ -1,8 +1,10 @@
 const fs = require('fs');
-const app = require('express')();
+const express = require('express')
+const app = express();
 const http = require('http').createServer(app)
-const io = require('socket.io')(https);
+const io = require('socket.io')(http);
 const os = require('os');
+const path = require('path')
 
 // network
 var networkInterfaces = os.networkInterfaces();
@@ -14,15 +16,12 @@ function zeroUsers() {
   }
 }
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/client.html');
-})
+app.use(express.static(path.join(__dirname, 'public'), {index: 'client.html'}));
 
 io.on('connection', (socket) => {
     socket.on('new user', (username) => {
         console.log('A user connected at ' + socket.handshake.address);
         connectedUsers += 1;
-        realTimeUsers.inc();
         console.log(connectedUsers);
         socket.username = username;
         console.log(socket.username)
@@ -32,18 +31,22 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('User Disconnected');
         connectedUsers -= 1;
-        realTimeUsers.dec();npm
         zeroUsers();
         io.emit('user left', `${socket.username} left the chat!`);
         io.emit('user count', connectedUsers);
     })
-    socket.on('chat message', (msg, username, file) => {
-        io.emit('chat message', msg, username, file);
+    socket.on('chat message', (msg, username, file = null) => {
+        console.log('Message Recieved')
+        if (file == null) {
+            io.emit('chat message', msg, username);
+        } else {
+            io.emit('chat message', msg, username, file);
+        }
     });
 
 })
 
 http.listen(3000, () => {
     console.log('listening on port 3000');
-    console.log(networkInterfaces);
+    //console.log(networkInterfaces);
 })

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Socket Client Test</title>
+    <script src="https://kit.fontawesome.com/03989b0f04.js" crossorigin="anonymous"></script>
+    <link type="text/css" rel="stylesheet" href="client.css">
+</head>
+
+<body>
+    <ul id="messages"></ul>
+    <p id="user-count">Users: </p>
+    <form action="" id="messageForm">
+        <input id="m" autocomplete="off" />
+        <label for="file-upload" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i> Custom Upload
+        </label>
+        <input id="file-upload" type="file"/>
+        <button>Send</button>
+    </form>
+
+    <!----- End Content -------->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <!--take out eventually--> <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="client.js"></script>
+</body>
+
+</html>
