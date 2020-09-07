@@ -1,10 +1,18 @@
 const username = prompt('Choose Username: ').toString().replaceAll("<", "").replaceAll(">", "");
 
 
-function enlargeThumbnail(obj) {
+function enlargeThumbnail() {
     var bg = document.createElement('div');
-    bg.classList.add('thumbnail-bg')
+    bg.classList.add('thumbnail-bg');
+    bg.setAttribute("onclick","closeEnlarge()");
+    document.body.appendChild(bg);
+    bg.appendChild();
     console.log("Added BG")
+}
+
+function closeEnlarge() {
+    var overlay = document.querySelector('.thumbnail-bg')
+    document.body.removeChild(overlay);
 }
 
 // ------------- Everything below this is socket.io related ----------------
@@ -52,7 +60,7 @@ var socket = io();
         if (file == null) {
         $('#messages').append($('<li class="text-message">').html(`<span class='username'>${username}</span><span class='message'>${msg}</span>`));
         } else {
-        $('#messages').append($('<li class="text-message">').html(`<span class='username'>${username}</span><span class='message'>${msg}</span><img class='thumbnail' onmouseover='enlargeThumbnail(this)' src='${file}' />`));
+        $('#messages').append($('<li class="text-message">').html(`<span class='username'>${username}</span><span class='message'>${msg}</span><img class='thumbnail' onclick='enlargeThumbnail(this)' src='${file}' />`));
         }
 
         var messages = document.getElementById("messages");
