@@ -97,6 +97,12 @@ button {
     max-height: 50px;
     grid-column: 2 / 3;
     grid-row: 2 / 3;
+    margin-left: 5px;
+}
+
+/* Fix */
+.thumbnail::before {
+    content: "Attatchments";
 }
 
 .thumbnail:hover {
@@ -111,4 +117,15 @@ button {
     left: 0;
     background: black;
     opacity: 0.4;
+}
+
+.bg-img {
+    z-index: 2;
+    opacity: 1;
+    box-shadow: 2px black;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(5);
+
 }

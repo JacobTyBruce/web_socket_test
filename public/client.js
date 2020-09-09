@@ -1,17 +1,21 @@
 const username = prompt('Choose Username: ').toString().replaceAll("<", "").replaceAll(">", "");
 
 
-function enlargeThumbnail() {
+function enlargeThumbnail(obj) {
     var bg = document.createElement('div');
     bg.classList.add('thumbnail-bg');
     bg.setAttribute("onclick","closeEnlarge()");
-    document.body.appendChild(bg);
-    bg.appendChild();
+    obj = obj.cloneNode()
+    obj.classList.add('bg-img')
+    document.body.append(bg, obj);
+    //document.body.append(obj);
     console.log("Added BG")
 }
 
 function closeEnlarge() {
     var overlay = document.querySelector('.thumbnail-bg')
+    var img = document.querySelector('.bg-img')    
+    document.body.removeChild(img);
     document.body.removeChild(overlay);
 }
 
@@ -52,7 +56,8 @@ var socket = io();
             
         }
          
-        e.target.elements.m.value = '';
+        //e.target.elements.m.value = '';
+        document.getElementById('messageForm').reset();
     });
 
     // recieve mesaage
